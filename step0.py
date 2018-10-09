@@ -4,6 +4,7 @@
 # (2)   RawData\corpus_en.txt
 import xlrd
 import logging
+import nltk
 LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
 DATE_FORMAT = "%m/%d/%Y %H:%M:%S %p"
 logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, datefmt=DATE_FORMAT)
@@ -12,6 +13,7 @@ logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, datefmt=DATE_FORMAT)
 CHINESE_CORPUS_FILE_PATH = r"Data\RawData\corpus_cn.txt"
 ENGLISH_CORPUS_FILE_PATH = r"Data\RawData\corpus_en.txt"
 EXCEL_FILE_PATH = r"Data\RawData\superconductor.xls"
+NLTK_PACKAGE_PATH = r"nltkPackage.txt"
 
 
 # 将中英文分别写入文件
@@ -40,8 +42,17 @@ def write_divided_abstract():
             enWriter.write("\n")
 
 
+def install_nltk_package():
+    with open(NLTK_PACKAGE_PATH,'r') as Reader:
+        for line in Reader.readlines():
+            nltk.download(line.strip())
+
+
 if __name__ == '__main__':
-    write_divided_abstract()
+    # 安装nltk依赖包
+    # install_nltk_package()
+    # write_divided_abstract()
+    pass
 
 
 
