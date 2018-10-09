@@ -1,0 +1,8 @@
+treebank
+wordnet
+words
+averaged_perceptron_tagger
+maxent_ne_chunker
+maxent_treebank_pos_tagger
+punkt
+stopwords
