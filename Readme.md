@@ -8,13 +8,15 @@
         * RawData*
         * Intermediate*
         * Output*
-    - Main.py 
+    - step0.py
+    - step1.py
+    - step2.py 
 
 带*的表示文件夹
 
 ## 2、分词
 中文分词：结巴分词
-英文分词：StanfordCoreNLP\哈工大ltp
-nltk
+英文分词：nltk
+
 
 
