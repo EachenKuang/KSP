@@ -2,3 +2,4 @@ nltk
 jieba
 xlrd
 logging
+gensim

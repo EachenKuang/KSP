@@ -3,6 +3,8 @@
 # 分别处理中文与英文
 import jieba
 import logging
+from gensim import models
+from gensim import corpora
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.lancaster import LancasterStemmer
@@ -74,7 +76,7 @@ def pre_process_cn(corpora, low_freq_filter=True):
 
     # 去除停用词(包含标点)
     stopwords_cn = []
-    with open('stopwords_cn.txt', 'r') as reader:
+    with open(r'Data/RawData/stopwords_cn.txt', 'r', encoding="UTF8") as reader:
         for line in reader.readlines():
             stopwords_cn.append(line.strip())
 
@@ -94,5 +96,35 @@ def pre_process_cn(corpora, low_freq_filter=True):
     else:
         texts = texts_stemmed
     return texts
+
+
+def save_dict(texts,filename=""):
+    """
+    保存字典以及数据集
+    :param texts: 预处理后的数据
+    :type [["","",..],[],..]
+    :param filename: 个性化名称，用于区分
+    :type str
+    :return: void
+    """
+    dictionary = corpora.Dictionary(texts)
+    dictionary.save(r"Data\Intermediate\dict_{0}.dict".format(filename))
+    dictionary.save_as_text(r"Data\Intermediate\dict_text_{0}.dict".format(filename), False)
+    corpus = [dictionary.doc2bow(text) for text in texts]
+    corpora.BleiCorpus.serialize(r"Data\Intermediate\corpus_{0}.blei".format(filename), corpus)
+
+
+if __name__ == '__main__':
+    with open(r"Data\RawData\corpus_cn.txt", 'r', encoding="UTF8") as cn_Reader,\
+            open(r"Data\RawData\corpus_en.txt", 'r', encoding="UTF8") as en_Reader:
+        # 去除'\n'
+        texts_en = [line.strip()for line in en_Reader.readlines()]
+        texts_cn = [line.strip() for line in cn_Reader.readlines()]
+
+        texts_pro_en = pre_process_en(texts_en)
+        texts_pro_cn = pre_process_cn(texts_cn)
+
+        save_dict(texts_pro_en,'en')
+        save_dict(texts_pro_cn,'cn')
 
 
