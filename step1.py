@@ -114,7 +114,24 @@ def save_dict(texts,filename=""):
     corpora.BleiCorpus.serialize(r"Data\Intermediate\corpus_{0}.blei".format(filename), corpus)
 
 
+def save_lda_model(corpus,dictionary,filename=""):
+
+    lda_model = \
+        models.LdaModel(alpha=0.5,
+                        eta=0.005,
+                        corpus=corpus,
+                        id2word=dictionary,
+                        num_topics=10,
+                        per_word_topics=True,
+                        iterations=300)
+    lda_model.print_topics()
+    lda_model.save(r'Data\Output\lda_model_' + filename)
+
+
 if __name__ == '__main__':
+
+    # 分词、字典保存
+    '''
     with open(r"Data\RawData\corpus_cn.txt", 'r', encoding="UTF8") as cn_Reader,\
             open(r"Data\RawData\corpus_en.txt", 'r', encoding="UTF8") as en_Reader:
         # 去除'\n'
@@ -126,5 +143,14 @@ if __name__ == '__main__':
 
         save_dict(texts_pro_en,'en')
         save_dict(texts_pro_cn,'cn')
+    '''
+
+    dictionary_cn = corpora.Dictionary.load(r"Data\Intermediate\dict_cn.dict")
+    corpus_cn = corpora.BleiCorpus(r"Data\Intermediate\corpus_cn.blei")
+    save_lda_model(corpus_cn,dictionary_cn,"cn")
+
+    dictionary_en = corpora.Dictionary.load(r"Data\Intermediate\dict_en.dict")
+    corpus_en = corpora.BleiCorpus(r"Data\Intermediate\corpus_en.blei")
+    save_lda_model(corpus_en, dictionary_en, "en")
 
 
