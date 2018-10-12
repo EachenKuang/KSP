@@ -3,3 +3,4 @@ jieba
 xlrd
 logging
 gensim
+requests
