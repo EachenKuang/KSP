@@ -4,3 +4,5 @@ xlrd
 logging
 gensim
 requests
+spacy
+textacy

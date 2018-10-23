@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, datefmt=DATE_FORMAT)
 def upload(origin_file, text_file):
     url = "http://2d4f0cd9.ngrok.io/files/upload/beu1aom3uqu3i63q4s30"
     files = {"origin_file":open(origin_file,'rb'),"text_file":open(text_file,'rb')}
-    data = {"Remark": "this is a test"}
+    data = {"Remark": "this   is a test"}
     headers = {"Content-type":"multipart/form-data"}
     response = requests.post(url, headers=headers,data=data, files=files)
     print(response.text)
