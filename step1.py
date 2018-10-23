@@ -1,6 +1,7 @@
 # the first step: raw data => words
 # 对于每篇文章，将中文摘要与英文摘要分来（提取“摘要”与“摘要（翻译）”列中的字段）
 # 分别处理中文与英文
+# 使用NLTK
 import jieba
 import logging
 from gensim import models
